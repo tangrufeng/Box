@@ -1,14 +1,14 @@
 package com.jeremyfeinstein.slidingmenu.lib.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.xhk.wifibox.activity.BaseActivity;
 
-public class SlidingActivity extends FragmentActivity implements SlidingActivityBase {
+public class SlidingActivity extends BaseActivity implements SlidingActivityBase {
 
 	private SlidingActivityHelper mHelper;
 

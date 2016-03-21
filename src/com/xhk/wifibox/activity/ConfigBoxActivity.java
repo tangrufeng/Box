@@ -8,13 +8,6 @@
  */
 package com.xhk.wifibox.activity;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
@@ -36,8 +29,8 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -51,25 +44,19 @@ import com.xhk.wifibox.box.BoxControler;
 import com.xhk.wifibox.utils.UDPHelper;
 import com.xhk.wifibox.utils.Util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author tang
  * 
  */
-public class ConfigBoxActivity extends Activity {
+public class ConfigBoxActivity extends BaseActivity {
 
 	private final String TAG = this.getClass().getSimpleName();
-
-	private WifiManager wManager = null;
-
-	private String defaultBoxIP = "192.168.100.1";
-
-	private int defaultBoxPort = 80;
-
 	private final String PRE_WIFI_BOX_SSID = "WIFIAudio_";
-
-	private BoxControler mControler = null;
-
-	private BoxCache boxCache = BoxCache.getCache();
 	private final int MSG_OPEN_WIFISETTING = 1;
 	private final int MSG_FIND_TARGETAP = 2;
 	private final int MSG_CONNECT_AP_TIMEOUT = 3;
@@ -80,6 +67,11 @@ public class ConfigBoxActivity extends Activity {
 	private final int MSG_TAGRET_BOX = 8;
 	private final int MSG_CONNECT_TARGET_TIMEOUT = 9;
 	private final int MSG_SHOW_TIPS = 11;
+	private WifiManager wManager = null;
+	private String defaultBoxIP = "192.168.100.1";
+	private int defaultBoxPort = 80;
+	private BoxControler mControler = null;
+	private BoxCache boxCache = BoxCache.getCache();
 	// private final int MSG_FIND_BOX_WIFI = 10;
 	private WifiConfiguration wcBox;
 
@@ -385,7 +377,6 @@ public class ConfigBoxActivity extends Activity {
 	/**
 	 * 配置手机连接音响的路由
 	 * 
-	 * @param sr
 	 * @return
 	 */
 	private boolean configureBoxWifi(final String ssid) {
@@ -426,6 +417,172 @@ public class ConfigBoxActivity extends Activity {
 			}
 		}
 		return null;
+	}
+
+	private void inputPWD() {
+		final EditText inputServer = new EditText(this);
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.dailog_pwd_title)
+				.setMessage(
+						getBaseContext().getString(R.string.dailog_pwd_msg,
+								targetSSID))
+				.setIcon(android.R.drawable.ic_dialog_dialer)
+				.setView(inputServer)
+				.setNegativeButton("选择其它网络",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+												int which) {
+								ArrayList<ScanResult> list = (ArrayList<ScanResult>) wManager
+										.getScanResults();
+								List<String> result = new ArrayList<String>();
+								for (ScanResult sr : list) {
+									result.add(Util
+											.removeTheDoubleQuotationMarks(sr.SSID));
+								}
+
+								Message msg = Message.obtain();
+								msg.obj = result;
+								msg.what = MSG_NOTFIND_TARGETAP;
+								handler.sendMessage(msg);
+							}
+						}).setCancelable(false)
+				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+					public void onClick(DialogInterface dialog, int which) {
+						new Thread(new Runnable() {
+
+							@Override
+							public void run() {
+								Log.d(TAG, "=currentBox==>" + currentBox
+										+ "==vBox=>" + vBox);
+								if (!mControler
+										.connectAP(targetSSID, inputServer
+														.getText().toString().trim(),
+												currentBox != null ? currentBox
+														: vBox)) {
+									handler.sendEmptyMessage(MSG_FIND_TARGETAP);
+								} else {
+									mControler
+											.restart(currentBox != null ? currentBox
+													: vBox);
+
+									handler.sendEmptyMessage(MSG_BOX_NEEDRESTART);
+								}
+							}
+						}).start();
+
+						dialog.dismiss();
+					}
+				}).show();
+	}
+
+	private List<String> findBoxWifi() {
+		ArrayList<ScanResult> list = (ArrayList<ScanResult>) wManager
+				.getScanResults();
+		List<String> result = new ArrayList<String>();
+		for (Iterator<ScanResult> iter = list.iterator(); iter.hasNext(); ) {
+			ScanResult sr = iter.next();
+			if (sr.SSID.startsWith(PRE_WIFI_BOX_SSID)) {
+				result.add(sr.SSID);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 手机链接到配置前连接的WIFI SSID
+	 */
+	private void connectTargetAP() {
+		WifiConfiguration wc = isExsits(targetSSID);
+		wManager.enableNetwork(wc.networkId, true);
+		handler.sendEmptyMessageDelayed(MSG_CONNECT_TARGET_TIMEOUT, 40000);
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (true) {
+					if (targetSSIDReady) {
+						udpHelper.scanBoxByName(currentBoxSSID);
+						break;
+					}
+				}
+			}
+		}).start();
+	}
+
+	/**
+	 *
+	 */
+	private void toSystemWifi() {
+		// 判断手机系统的版本 即API大于10 就是3.0或以上版本
+		if (android.os.Build.VERSION.SDK_INT > 10) {
+			// 3.0以上打开设置界面，也可以直接用ACTION_WIRELESS_SETTINGS打开到wifi界面
+			startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
+		} else {
+			startActivity(new Intent(
+					android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see android.app.Activity#onDestroy()
+	 */
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		XHKApplication.getInstance().removeActivity(this);
+	}
+
+	/**
+	 *
+	 */
+	private void ok() {
+		mControler.setBoxApiAddress(currentBox.deviceIpAddr,
+				currentBox.httpApiPort);
+		if (wcBox != null) { // 删掉wcBox
+			wManager.removeNetwork(wcBox.networkId);
+		}
+		if (msgTips.isShowing()) {
+			msgTips.dismiss();
+		}
+		Toast.makeText(ConfigBoxActivity.this, "音响配置成功", Toast.LENGTH_SHORT)
+				.show();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				mControler.getCurrentPlayListFromBox(); // 刷新一下播放列表
+				mControler.startSyncBoxPlayState(); // 开始监听音响播放状态
+			}
+		}).start();
+		Intent i = new Intent(ConfigBoxActivity.this, MainActivity.class);
+		startActivity(i);
+		ConfigBoxActivity.this.finish();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (receiver != null) {
+			unregisterReceiver(receiver);
+		}
+		if (wcBox != null) {
+			wManager.removeNetwork(wcBox.networkId);
+		}
+
+	}
+
+	/**
+	 *
+	 */
+	private void showMsgTips(String msg) {
+		Message message = Message.obtain();
+		message.what = MSG_SHOW_TIPS;
+		message.obj = msg;
+		handler.sendMessage(message);
 	}
 
 	class WifiChangedRceciver extends BroadcastReceiver {
@@ -476,171 +633,5 @@ public class ConfigBoxActivity extends Activity {
 			}
 		}
 
-	}
-
-	private void inputPWD() {
-		final EditText inputServer = new EditText(this);
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(R.string.dailog_pwd_title)
-				.setMessage(
-						getBaseContext().getString(R.string.dailog_pwd_msg,
-								targetSSID))
-				.setIcon(android.R.drawable.ic_dialog_dialer)
-				.setView(inputServer)
-				.setNegativeButton("选择其它网络",
-						new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								ArrayList<ScanResult> list = (ArrayList<ScanResult>) wManager
-										.getScanResults();
-								List<String> result = new ArrayList<String>();
-								for (ScanResult sr : list) {
-									result.add(Util
-											.removeTheDoubleQuotationMarks(sr.SSID));
-								}
-
-								Message msg = Message.obtain();
-								msg.obj = result;
-								msg.what = MSG_NOTFIND_TARGETAP;
-								handler.sendMessage(msg);
-							}
-						}).setCancelable(false)
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-					public void onClick(DialogInterface dialog, int which) {
-						new Thread(new Runnable() {
-
-							@Override
-							public void run() {
-								Log.d(TAG, "=currentBox==>" + currentBox
-										+ "==vBox=>" + vBox);
-								if (!mControler
-										.connectAP(targetSSID, inputServer
-												.getText().toString().trim(),
-												currentBox != null ? currentBox
-														: vBox)) {
-									handler.sendEmptyMessage(MSG_FIND_TARGETAP);
-								} else {
-									mControler
-											.restart(currentBox != null ? currentBox
-													: vBox);
-
-									handler.sendEmptyMessage(MSG_BOX_NEEDRESTART);
-								}
-							}
-						}).start();
-
-						dialog.dismiss();
-					}
-				}).show();
-	}
-
-	private List<String> findBoxWifi() {
-		ArrayList<ScanResult> list = (ArrayList<ScanResult>) wManager
-				.getScanResults();
-		List<String> result = new ArrayList<String>();
-		for (Iterator<ScanResult> iter = list.iterator(); iter.hasNext();) {
-			ScanResult sr = iter.next();
-			if (sr.SSID.startsWith(PRE_WIFI_BOX_SSID)) {
-				result.add(sr.SSID);
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * 手机链接到配置前连接的WIFI SSID
-	 */
-	private void connectTargetAP() {
-		WifiConfiguration wc = isExsits(targetSSID);
-		wManager.enableNetwork(wc.networkId, true);
-		handler.sendEmptyMessageDelayed(MSG_CONNECT_TARGET_TIMEOUT, 40000);
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (true) {
-					if (targetSSIDReady) {
-						udpHelper.scanBoxByName(currentBoxSSID);
-						break;
-					}
-				}
-			}
-		}).start();
-	}
-
-	/**
-	 * 
-	 */
-	private void toSystemWifi() {
-		// 判断手机系统的版本 即API大于10 就是3.0或以上版本
-		if (android.os.Build.VERSION.SDK_INT > 10) {
-			// 3.0以上打开设置界面，也可以直接用ACTION_WIRELESS_SETTINGS打开到wifi界面
-			startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS));
-		} else {
-			startActivity(new Intent(
-					android.provider.Settings.ACTION_WIRELESS_SETTINGS));
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onDestroy()
-	 */
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		XHKApplication.getInstance().removeActivity(this);
-	}
-
-	/**
-	 * 
-	 */
-	private void ok() {
-		mControler.setBoxApiAddress(currentBox.deviceIpAddr,
-				currentBox.httpApiPort);
-		if (wcBox != null) { // 删掉wcBox
-			wManager.removeNetwork(wcBox.networkId);
-		}
-		if (msgTips.isShowing()) {
-			msgTips.dismiss();
-		}
-		Toast.makeText(ConfigBoxActivity.this, "音响配置成功", Toast.LENGTH_SHORT)
-				.show();
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				mControler.getCurrentPlayListFromBox(); // 刷新一下播放列表
-				mControler.startSyncBoxPlayState(); // 开始监听音响播放状态
-			}
-		}).start();
-		Intent i = new Intent(ConfigBoxActivity.this, MainActivity.class);
-		startActivity(i);
-		ConfigBoxActivity.this.finish();
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		if (receiver != null) {
-			unregisterReceiver(receiver);
-		}
-		if (wcBox != null) {
-			wManager.removeNetwork(wcBox.networkId);
-		}
-
-	}
-
-	/**
-	 * 
-	 */
-	private void showMsgTips(String msg) {
-		Message message = Message.obtain();
-		message.what = MSG_SHOW_TIPS;
-		message.obj = msg;
-		handler.sendMessage(message);
 	}
 }

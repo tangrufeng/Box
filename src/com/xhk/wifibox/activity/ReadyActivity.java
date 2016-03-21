@@ -8,12 +8,6 @@
  */
 package com.xhk.wifibox.activity;
 
-import java.io.File;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,7 +28,6 @@ import com.xhk.wifibox.XHKApplication;
 import com.xhk.wifibox.box.Box;
 import com.xhk.wifibox.box.BoxCache;
 import com.xhk.wifibox.box.BoxControler;
-import com.xhk.wifibox.dialog.ConfirmDialog;
 import com.xhk.wifibox.dialog.UpdatingDialog;
 import com.xhk.wifibox.dialog.UpdatingDialog.OnCancelUpdateClickListener;
 import com.xhk.wifibox.dialog.UpdatingDialog.OnUpdateCompleteListener;
@@ -46,16 +39,21 @@ import com.xhk.wifibox.utils.JSONUtil;
 import com.xhk.wifibox.utils.NetUtils;
 import com.xhk.wifibox.utils.UDPHelper;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+
 /**
  * @author tang
  * 
  */
-public class ReadyActivity extends Activity {
+public class ReadyActivity extends BaseActivity {
 
 	private final String TAG = this.getClass().getSimpleName();
-	private UDPHelper udpHelper;
 	private final int MSG_HAVE_NEWVERSION = 1;
 	private final int MSG_TAGRET_BOX = 3;
+	private UDPHelper udpHelper;
 	private TextView tvReadyTips = null;
 	private BoxCache boxCache = BoxCache.getCache();
 	private BoxControler bControler = BoxControler.getInstance();
