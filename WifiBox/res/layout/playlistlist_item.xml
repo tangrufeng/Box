@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_list_item"
+    android:orientation="horizontal" 
+    android:clickable="true">
+
+    
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="22dp"
+        android:background="@null"
+        android:src="@drawable/ic_list_default" />
+<!-- 
+<CheckedTextView
+    android:id="@+id/tv_playlist_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+/> -->
+    
+    <CheckedTextView
+        android:id="@+id/tv_playlist_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+   	 	android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+        android:layout_marginLeft="13dp"
+        android:text="创建歌单"
+        android:textColor="#ff4cc38b"
+        android:textSize="18sp" />
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="red">#ffc60f0f</color>
+    <color name="blue">#ff0d59c0</color>
+    <color name="green">#ff2eb63c</color>
+     <color name="gray">#ffeeeeee</color>
+
+    <!-- ===========文字的颜色========= -->
+
+
+    <!-- 黑色,软件中文字的主色 -->
+    <color name="text_color_1">#ff333333</color>
+
+    <!-- 灰色 -->
+<!--     <color name="text_color_2">#ff606366 </color> -->
+    <color name="text_color_2">#FFA0A0A0</color>
+
+    <!-- 浅灰色，目前好像用不到，主要是在inputView的hint文字的颜色 -->
+    <color name="text_color_3">#ffcccccc</color>
+
+    <!-- 橙色 -->
+    <color name="text_color_4">#fff25c02</color>
+
+    <!-- 绿色 -->
+    <color name="text_color_5">#ff7dd080</color>
+
+    <!-- 蓝色 -->
+    <color name="text_color_6">#ff0080ff</color>
+    <color name="text_color_7">#ff6a6e70</color>
+
+    <color name ="left_menu_bg">#FFBDD7EE</color>
+    <color name ="left_menu_item_bg">#FF282525</color>
+    <color name ="left_menu_item_text">#FFA0A0A0</color>
+    <color name="header_bg">#ff4cc38b</color>
+    
+    <color name="bg_pressed">#ffe6e6e6</color>
+    
+    <color name="ttfm_bg">#ffebebeb</color>
+    <color name="xmly_item_pressed">#ffdfe6ec</color>
+    <color name="xmly_list_divider">#ffe8e8e8</color>
+    
+    <color name="btnColorPrimary">#37c3d0</color>
+    <color name="textColorPrimary">#ff313131</color>
+    <color name="textColorSecondary">#ffa0a0a0</color>
+    <color name="colorBorder">#dddddd</color>
+    <color name="dark">#dddddd</color>
+    <color name="navpage">#FFE1E8EB</color>
+    <color name="line_color">#ffe7e8ea</color>
+    <color name="bg_color_light_blue">#ffE6F2FF</color>
+    <color name="ff898989">#ff898989</color>
+</resources>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/menubg1" >
+
+    <TextView
+        android:id="@+id/tv_left_title"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@drawable/bg_lefttitile"
+        android:gravity="center"
+        android:text="@string/my_music"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_left_title"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+
+        <LinearLayout
+            android:id="@+id/ll_left_searchSong"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_height"
+            android:background="@drawable/left_menu_item_bg_color_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_search" />
+
+            <TextView
+                style="@style/LeftMenuItemTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/ll_left_myLove"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_height"
+            android:background="@drawable/left_menu_item_bg_color_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_mylove" />
+
+            <TextView
+                style="@style/LeftMenuItemTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_love" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/ll_left_localSong"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_height"
+            android:background="@drawable/left_menu_item_bg_color_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_local" />
+
+            <TextView
+                style="@style/LeftMenuItemTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_localMusic" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/ll_left_playlist"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_height"
+            android:background="@drawable/left_menu_item_bg_color_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_playlist" />
+
+            <TextView
+                style="@style/LeftMenuItemTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/my_playLIst" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/ll_left_xiami"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_height"
+            android:background="@drawable/left_menu_item_bg_color_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_xiami" />
+
+            <TextView
+                style="@style/LeftMenuItemTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/net_xiami" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/white" 
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:id="@+id/ll_left_xmly"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_height"
+            android:background="@drawable/left_menu_item_bg_color_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_ttfm" />
+
+            <TextView
+                style="@style/LeftMenuItemTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/net_ximalaya" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/white"/>
+
+        <LinearLayout
+            android:id="@+id/ll_left_ttfm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/menu_item_height"
+            android:background="@drawable/left_menu_item_bg_color_selector"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" 
+            android:visibility="visible">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_xmly" />
+
+            <TextView
+                style="@style/LeftMenuItemTextTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/net_tingting" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/white" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_exit"
+        style="@style/LeftMenuItemTextTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/left_menu_item_bg_color_selector"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/setting" />
+
+</RelativeLayout>

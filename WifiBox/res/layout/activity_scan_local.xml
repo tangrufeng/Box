@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/bg_scan_area" >
+
+        <ImageView
+            android:id="@+id/iv_scan_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" 
+            android:src="@drawable/ic_scan_local"/>
+        
+        
+        <ImageView
+            android:id="@+id/iv_scan_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" 
+            android:layout_alignTop="@id/iv_scan_local"
+            android:layout_alignLeft="@id/iv_scan_local"
+            android:layout_marginLeft="24dp"
+            android:src="@drawable/ic_scan_search"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_scan_btn"
+        android:gravity="center"
+        android:text="@string/begin_scan" 
+        android:textColor="@android:color/white"
+        />
+
+    <CheckBox
+        android:id="@+id/cbScanScope"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="排除长度小于60秒的文件" />
+
+    <TextView
+        android:id="@+id/tvProcessing"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

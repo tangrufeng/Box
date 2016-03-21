@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xhk="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/head_height"
+        android:background="@color/header_bg" 
+        android:id="@+id/rl_baseTitle">
+
+        <Button
+            android:id="@+id/ib_myMusicBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:text="音乐"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" 
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/ib_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+			android:src="@drawable/home"/>
+        
+        <TextView
+            android:id="@+id/tv_activity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/net_xiami"
+            android:textColor="@android:color/white"
+            android:maxLength="10"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"  
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/ib_myBoxesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:text="音响"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" 
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/ib_list_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+			android:src="@drawable/player_btn_more_normal"
+			android:visibility="gone"/>
+    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/base_content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:id="@+id/fragment_mini_player"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

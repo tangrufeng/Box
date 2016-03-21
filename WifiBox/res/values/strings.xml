@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WIFI智能音响</string>
+    <string name="my_music">我的音乐</string>
+    <string name="my_box">我的音响</string>
+    <string name="search">搜索</string>
+    <string name="my_love">我的最爱</string>
+    <string name="my_localMusic">本地音乐</string>
+    <string name="begin_scan">开始扫描</string>
+    <string name="scaning">正在扫描...</string>
+    <string name="my_playLIst">我的歌单</string>
+    <string name="net_xiami">虾米音乐</string>
+    <string name="net_ximalaya">喜马拉雅</string>
+    <string name="net_tingting">听听电台</string>
+    <string name="setting">退出</string>
+    <string name="unknown_artist">未知艺术家</string>
+    <string name="unknown_album">未知专辑</string>
+    <string name="unknown_genre">未知流派</string>
+    <string name="hint_search_song">搜索歌曲</string>
+    <string name="xm_main_collect">精选集</string>
+    <string name="xm_main_collect_tip">丰富的歌曲精选</string>
+    <string name="xm_main_list">排行榜</string>
+    <string name="xm_main_list_tip">音乐流行趋势</string>
+    <string name="xm_main_radio">电台</string>
+    <string name="xm_main_radio_tip">轻松享受好音乐</string>
+    <string name="xm_main_mv">场景音乐</string>
+    <string name="xm_main_mv_tip">学习、工作、聚会...</string>
+    <string name="xm_raido_list_item_tip">当前热度%1$s</string>
+    <string name="xm_chinese_M">华语男艺人</string>
+    <string name="xm_chinese_F">华语女艺人</string>
+    <string name="xm_chinese_B">华语乐队组合</string>
+    <string name="xm_english_M">欧美男艺人</string>
+    <string name="xm_english_F">欧美女艺人</string>
+    <string name="xm_english_B">欧美乐队组合</string>
+    <string name="xm_japanese_M">日本男艺人</string>
+    <string name="xm_japanese_F">日本女艺人</string>
+    <string name="xm_japanese_B">日本乐队组合</string>
+    <string name="xm_korea_M">韩国男艺人</string>
+    <string name="xm_korea_F">韩国女艺人</string>
+    <string name="xm_korea_B">韩国乐队组合</string>
+
+    <string name="box_scan_box">正在寻找您的音响...</string>
+    <string name="box_scan_nobox">没有找到可以播放的音响设备，开始扫描网络环境...</string>
+    <string name="box_scan_wifi">正在寻找您的音响热点...</string>
+    <string name="dailog_pwd_title">输入密码</string>
+    <string name="dailog_pwd_msg">请输入\"%1$s\"的WIFI密码</string>
+    <string name="dailog_app_list_title">请选择您音响需要连接的WIFI</string>
+    <string name="dailog_no_boxap">没有找到音响热点</string>
+    <string name="dailog_no_boxap_msg">没有找到您的音响网络，请确保您的音响已经正常开启，并且放置在您的身边</string>
+    <string name="dailog_btn_self">手动选择</string>
+    <string name="dailog_btn_retry">重试</string>
+    <string name="dailog_btn_cancle">取消</string>
+    <string name="dailog_boxap_select">请选择您准备配置的音响热点</string>
+    <string name="dailog_boxap_connectfaile">音响连接失败</string>
+</resources>

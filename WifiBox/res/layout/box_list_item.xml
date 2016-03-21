@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_ritht_box"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/bg_mybox"
+    android:orientation="vertical" 
+    android:longClickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/tv_boxName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="1"
+            android:maxWidth="100dp"
+            android:singleLine="true"
+            android:textColor="#ff0086cb"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+		<Button 
+		    android:id="@+id/btnNewVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="升级"
+            android:textColor="@color/red"
+            android:background="@null"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+        <ImageView
+            android:id="@+id/iv_boxPlayStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:src="@drawable/current_box" 
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/ib_boxVoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/box_voice_open" />
+
+        <SeekBar
+            android:id="@+id/sb_voice"
+            style="@style/Widget.SeekBar.Normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/ib_box_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:padding="10dp"
+            android:src="@drawable/icon_arrow_down" />
+    </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/rg_box_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:text="音源:" />
+
+        <RadioButton
+            android:id="@+id/rb_aux"
+            style="@style/box_raido_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="AUX" />
+
+        <RadioButton
+            android:id="@+id/rb_usb"
+            style="@style/box_raido_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="USB" />
+
+        <RadioButton
+            android:id="@+id/rb_wifi"
+            style="@style/box_raido_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="WIFI" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rg_box_dsp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:text="DSP:" />
+
+        <RadioButton
+            android:id="@+id/rb_dsp_1"
+            style="@style/box_raido_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="音乐" />
+
+        <RadioButton
+            android:id="@+id/rb_dsp_2"
+            style="@style/box_raido_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="广播" />
+
+        <RadioButton
+            android:id="@+id/rb_dsp_3"
+            style="@style/box_raido_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="重低音" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:id="@+id/ll_box_opts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/btn_rename"
+            style="@style/box_btn_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="重命名" />
+
+        <Button
+            android:id="@+id/btn_info"
+            style="@style/box_btn_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="音响信息" />
+
+        <Button
+            android:id="@+id/btn_setting"
+            style="@style/box_btn_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="音响设置" />
+    </LinearLayout>
+
+</LinearLayout>

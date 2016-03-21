@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xhk="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/list_item_height"
+    android:background="@drawable/bg_list_item"
+    android:clickable="true"
+    android:minHeight="@dimen/list_item_height" >
+
+    <com.xhk.wifibox.view.CircleImageView
+        android:id="@+id/ci_song_logo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:src="@drawable/bg_localsong"
+        xhk:border_outside_color="#ffdddddd"
+        xhk:border_thickness="1dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ci_song_logo"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_songName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLength="12"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:text="歌曲名称"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="歌手名称"
+            android:textColor="@color/text_color_2"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <CheckBox 
+        android:id="@+id/cb_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:padding="15dp"
+        android:visibility="gone"/>
+    <!-- <ImageButton
+        android:id="@+id/ib_moreOpt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:padding="15dp"
+        android:src="@drawable/ic_down" /> -->
+
+</RelativeLayout>

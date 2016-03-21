@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xhk="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mini_player"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff4f4f4" >
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentTop="true"
+        android:background="#ffcdcdcd" />
+
+    <com.xhk.wifibox.view.CircleImageView
+        android:id="@+id/mini_player_image"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/bg_localsong"
+        xhk:border_outside_color="#ffdddddd"
+        xhk:border_thickness="1dp" />
+
+    <TextView
+        android:id="@+id/mini_player_boxname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/mini_player_image"
+        android:text="客厅"
+        android:textColor="#ff8d8d8d"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/mini_player_songname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mini_player_boxname"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@id/mini_player_image"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:maxWidth="200dp"
+        android:singleLine="true"
+        android:text="无歌曲"
+        android:textColor="#ff8d8d8d"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/mini_player_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/mini_play" />
+
+</RelativeLayout>

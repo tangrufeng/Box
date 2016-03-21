@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 喜马拉雅相关接口 -->
+    <string name="url_xmly_search">http://3rd.ximalaya.com/search/tracks?i_am=%1$s&amp;uni=%2$s&amp;q=%3$s&amp;page=%4$s&amp;per_page=%5$s</string>
+    <string name="url_xmly_categories">http://3rd.ximalaya.com/categories?i_am=%1$s&amp;uni=%2$s&amp;icon_version=5</string>
+    <string name="url_xmly_categories_tag">http://3rd.ximalaya.com/categories/%1$s/tags?i_am=%2$s&amp;uni=%3$s&amp;icon_version=5</string>
+    <string name="url_xmly_categories_track">http://3rd.ximalaya.com/categories/%1$s/track_tags?i_am=%2$s&amp;uni=%3$s&amp;icon_version=5</string>
+    <string name="url_xmly_categories_hot_albums">http://3rd.ximalaya.com/categories/%1$s/hot_albums?i_am=%2$s&amp;tag=%3$s&amp;uni=%4$s&amp;page=%5$s&amp;per_page=%6$s&amp;icon_version=5</string>
+    <string name="url_xmly_albums_tracks">http://3rd.ximalaya.com/albums/%1$s/tracks?i_am=%2$s&amp;uni=%3$s&amp;page=%4$s&amp;per_page=%5$s&amp;icon_version=5</string>
+    <string name="url_xmly_explore">http://3rd.ximalaya.com/explore/tracks?i_am=%1$s&amp;category_id=%2$s&amp;condition=daily&amp;page=%3$s&amp;per_page=%4$s&amp;uni=%5$s&amp;icon_version=5</string>
+    <string name="url_xmly_track">http://3rd.ximalaya.com/tracks/%1$s?i_am=%2$s&amp;uni=%3$s&amp;icon_version=5</string>
+    
+</resources>

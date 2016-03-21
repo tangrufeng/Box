@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_baseTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/head_height"
+        android:background="@color/header_bg" >
+
+        <TextView
+            android:id="@+id/tv_activity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:maxLength="10"
+            android:singleLine="true"
+            android:text="添加音响"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="欢迎使用WIFI智能音响"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="15dp"
+        android:text="接下来将引导您完成WIFI智能音响的配置，完成后您可以直接使用手机控制音响，整个过程会占用您大概半分钟时间。\n\n请首先保证您的音响已经正常开启。"
+        android:textSize="16dp" />
+
+    <Button
+        android:id="@+id/btnBegin"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/bg_scan_btn"
+        android:gravity="center"
+        android:text="开始配置"
+        android:textColor="@android:color/white" />
+
+
+</LinearLayout>
