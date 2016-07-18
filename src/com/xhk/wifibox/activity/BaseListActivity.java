@@ -8,9 +8,6 @@
  */
 package com.xhk.wifibox.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -22,7 +19,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +33,9 @@ import com.xhk.wifibox.track.TrackMeta;
 import com.xhk.wifibox.utils.Contants;
 import com.xhk.wifibox.utils.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author tang
  * @param <T>
@@ -45,15 +44,11 @@ import com.xhk.wifibox.utils.Util;
 public abstract class BaseListActivity<T> extends BasePlayerActivity implements
 		OnRefreshListener2<ListView>, OnClickListener {
 
+	protected final int MSG_DATA_GETTED = 1;
 	private View llOperArea, llEditArea, tvEdit, tvDel, tvQuite;
 	private int currentPage = 1;
-
 	private BaseAdapter<T> adapter;
-
 	private PullToRefreshListView refreshList;
-
-	protected final int MSG_DATA_GETTED = 1;
-
 	private List<T> list = new ArrayList<T>();
 
 	private Handler handler = new Handler(new Callback() {
@@ -64,6 +59,11 @@ public abstract class BaseListActivity<T> extends BasePlayerActivity implements
 			case MSG_DATA_GETTED:
 				Log.d("BaseListActivity", "====="
 						+ "========MSG_DATA_GETTED==========");
+
+				List temp = (List) msg.obj;
+				if (temp != null) {
+					getList().addAll(temp);
+				}
 				adapter.notifyDataSetChanged();
 				refreshList.onRefreshComplete();
 				setMoreBtn();

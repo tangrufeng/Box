@@ -8,27 +8,20 @@
  */
 package com.xhk.wifibox.activity;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.os.Handler.Callback;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.xhk.wifibox.R;
 import com.xhk.wifibox.action.XHKAction;
 import com.xhk.wifibox.adapter.BaseAdapter;
 import com.xhk.wifibox.adapter.PlayListAdapter;
@@ -37,18 +30,22 @@ import com.xhk.wifibox.model.MediaDatabase;
 import com.xhk.wifibox.track.TrackMeta;
 import com.xhk.wifibox.utils.Contants;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
 /**
  * @author tang
  * 
  */
 public class PlayListActivity extends BaseListActivity<TrackMeta> {
 
+	private final int MSG_BIND_HOTKEY_RST = 6;
 	private String TAG = this.getClass().getSimpleName();
 	private Class<XHKAction> clazz;
 	private Method method;
 	private Object dataSource;
 	private String playListId;
-	private final int MSG_BIND_HOTKEY_RST = 6;
 	private Handler handler = new Handler(new Callback() {
 
 		@Override
@@ -204,7 +201,9 @@ public class PlayListActivity extends BaseListActivity<TrackMeta> {
 				try {
 					temp = (List<TrackMeta>) method.invoke(dataSource,
 							playListId, 20, currentPage());
-					getList().addAll(temp);
+					Message msg = getHandler().obtainMessage(MSG_DATA_GETTED, temp);
+					getHandler().sendMessage(msg);
+					dismissDialog(1);
 				} catch (IllegalAccessException e) {
 					Log.e(TAG, e.getLocalizedMessage(), e);
 				} catch (IllegalArgumentException e) {
@@ -212,8 +211,6 @@ public class PlayListActivity extends BaseListActivity<TrackMeta> {
 				} catch (InvocationTargetException e) {
 					Log.e(TAG, e.getLocalizedMessage(), e);
 				}
-				getHandler().sendEmptyMessage(MSG_DATA_GETTED);
-				dismissDialog(1);
 			}
 		}.start();
 

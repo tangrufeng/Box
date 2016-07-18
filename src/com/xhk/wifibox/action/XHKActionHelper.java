@@ -8,14 +8,12 @@
  */
 package com.xhk.wifibox.action;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
-import android.util.Log;
 
 import com.xhk.wifibox.track.TrackMeta;
-import com.xhk.wifibox.utils.ClassUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author tang
@@ -29,19 +27,20 @@ public class XHKActionHelper {
 
 	private List<XHKAction> actions = null;
 
+	private XHKActionHelper() {
+	}
+
+	private XHKActionHelper(Context ctx) {
+		actions = new ArrayList<XHKAction>();
+		actions.add(new XMAction(ctx));
+//		actions.add(new XMLYAction(ctx));
+	}
+
 	public static XHKActionHelper getIntance(Context ctx){
 		if(intance==null){
 			intance=new XHKActionHelper(ctx);
 		}
 		return intance;
-	}
-	
-	private XHKActionHelper(){};
-	
-	private XHKActionHelper(Context ctx) {
-		actions = new ArrayList<XHKAction>();
-		actions.add(new XMAction(ctx));
-		actions.add(new XMLYAction(ctx));
 	}
 
 	public List<TrackMeta> searchSong(String key, int pageSize, int pageIndex) {

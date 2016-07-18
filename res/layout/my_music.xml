@@ -150,8 +150,8 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/white" 
-            android:visibility="visible"/>
+            android:background="@color/white"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/ll_left_xmly"
@@ -161,7 +161,7 @@
             android:clickable="true"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -187,7 +187,7 @@
             android:background="@drawable/left_menu_item_bg_color_selector"
             android:clickable="true"
             android:gravity="center_vertical"
-            android:orientation="horizontal" 
+            android:orientation="horizontal"
             android:visibility="visible">
 
             <ImageView
@@ -208,16 +208,29 @@
             android:background="@color/white" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_exit"
-        style="@style/LeftMenuItemTextTheme"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/left_menu_item_bg_color_selector"
-        android:clickable="true"
-        android:gravity="center"
-        android:text="@string/setting" />
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/tv_version"
+            style="@style/LeftMenuItemTextTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            />
+
+        <Button
+            android:id="@+id/btn_exit"
+            style="@style/LeftMenuItemTextTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/left_menu_item_bg_color_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="@string/setting"/>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -8,9 +8,6 @@
  */
 package com.xhk.wifibox.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -29,19 +26,19 @@ import com.xhk.wifibox.box.BoxControler;
 import com.xhk.wifibox.track.TrackMeta;
 import com.xhk.wifibox.view.CircleImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author tang
  * 
  */
 public class PlayListAdapter extends BaseAdapter<TrackMeta> {
 	private final static String TAG = PlayListAdapter.class.getSimpleName();
+	private static final int ITEM_HEAD = 0;
+	private static final int ITEM_SONG = 1;
 	private Context context;
 	private ViewHolder holder = null;
-
-	private static final int ITEM_HEAD = 0;
-
-	private static final int ITEM_SONG = 1;
-
 	private boolean isEdit=false;
 	private List<TrackMeta> playList = null;
 
@@ -90,11 +87,8 @@ public class PlayListAdapter extends BaseAdapter<TrackMeta> {
 	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// int viewType = getItemViewType(position);
 		if (convertView == null) {
 			holder = new ViewHolder();
-			// switch (viewType) {
-			// case ITEM_SONG:
 			convertView = View.inflate(context, R.layout.playlist_item, null);
 			holder.civSongLogo = (CircleImageView) convertView
 					.findViewById(R.id.ci_song_logo);
@@ -155,28 +149,7 @@ public class PlayListAdapter extends BaseAdapter<TrackMeta> {
 				}
 			}
 		});
-		// holder.ibMoreOpts.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// }
-		// });
-		// } else {
-		// holder.ibMoreOpts.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// // TODO Auto-generated method stub
-		// }
-		// });
-		// }
 		return convertView;
-	}
-
-	class ViewHolder {
-		CircleImageView civSongLogo;
-		TextView tvSongName, tvArtist;
-		CheckBox cbCheck;
 	}
 
 	/* (non-Javadoc)
@@ -202,6 +175,12 @@ public class PlayListAdapter extends BaseAdapter<TrackMeta> {
 	@Override
 	public List<TrackMeta> getFlush() {
 		return this.flush;
+	}
+
+	class ViewHolder {
+		CircleImageView civSongLogo;
+		TextView tvSongName, tvArtist;
+		CheckBox cbCheck;
 	}
 
 }

@@ -8,10 +8,6 @@
  */
 package com.xhk.wifibox.action;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import android.content.Context;
 import android.util.Log;
 import android.util.Pair;
@@ -33,6 +29,10 @@ import com.xiami.sdk.entities.RankList;
 import com.xiami.sdk.entities.RankListItem;
 import com.xiami.sdk.entities.RankType;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * 
  * @author tang
@@ -51,6 +51,9 @@ public class XMAction implements XHKAction {
 	public List<TrackMeta> searchSong(String key, int pageSize, int pageIndex) {
 		Pair<QueryInfo, List<OnlineSong>> results = sdk.searchSongSync(key,
 				pageSize, pageIndex);
+		if (results == null) {
+			return null;
+		}
 		QueryInfo info = results.first;
 		Log.d(TAG,
 				"searchSong===QueryInfo.getResultCount()========="
@@ -69,19 +72,21 @@ public class XMAction implements XHKAction {
 		Pair<QueryInfo, java.util.List<OnlineCollect>> results = sdk
 				.getCollectsRecommendSync(pageSize, pageIndex);
 		List<Album> list = new ArrayList<Album>();
-		QueryInfo info = results.first;
-		if (info.getResultCount() > 0) {
-			List<OnlineCollect> collects = results.second;
-			for (Iterator<OnlineCollect> iter = collects.iterator(); iter
-					.hasNext();) {
-				Album album = new Album();
-				OnlineCollect temp = iter.next();
-				album.setAuthor(temp.getUserName());
-				album.setTitle(temp.getCollectName());
-				album.setDesc(temp.getDescription());
-				album.setId(temp.getListId());
-				album.setLogoUrl(temp.getImageUrl());
-				list.add(album);
+		if (results != null) {
+			QueryInfo info = results.first;
+			if (info.getResultCount() > 0) {
+				List<OnlineCollect> collects = results.second;
+				for (Iterator<OnlineCollect> iter = collects.iterator(); iter
+						.hasNext(); ) {
+					Album album = new Album();
+					OnlineCollect temp = iter.next();
+					album.setAuthor(temp.getUserName());
+					album.setTitle(temp.getCollectName());
+					album.setDesc(temp.getDescription());
+					album.setId(temp.getListId());
+					album.setLogoUrl(temp.getImageUrl());
+					list.add(album);
+				}
 			}
 		}
 
@@ -91,16 +96,18 @@ public class XMAction implements XHKAction {
 	public List<RankListItem> getRankListsSync() {
 		List<RankListItem> result = new ArrayList<RankListItem>();
 		List<RankList> list = sdk.getRankListsSync();
-		for (Iterator<RankList> iter = list.iterator(); iter.hasNext();) {
-			RankList rl = iter.next();
-			for (Iterator<RankListItem> iter2 = rl.getItems().iterator(); iter2
-					.hasNext();) {
-				result.add(iter2.next());
+		if (list != null && list.iterator() != null) {
+			for (Iterator<RankList> iter = list.iterator(); iter.hasNext(); ) {
+				RankList rl = iter.next();
+				if (rl != null && rl.getItems() != null
+						&& rl.getItems().iterator() != null) {
+					for (Iterator<RankListItem> iter2 = rl.getItems()
+							.iterator(); iter2.hasNext(); ) {
+						result.add(iter2.next());
+					}
+				}
 			}
 		}
-
-		// TODO
-		(new TTFMAction()).getMusicCategoryList();
 
 		return result;
 	}
@@ -128,11 +135,11 @@ public class XMAction implements XHKAction {
 	public List<OnlineArtist> getArtistsSync(ArtistRegion ar, int pageSize,
 			int pageIndex) {
 		List<OnlineArtist> result = new ArrayList<OnlineArtist>();
-		try{
-		ArtistBook ab = sdk.fetchArtistBookSync(ar, pageSize, pageIndex);
-		result.addAll(ab.getArtists());
-		}catch(Exception e){
-			Log.e(TAG,"",e);
+		try {
+			ArtistBook ab = sdk.fetchArtistBookSync(ar, pageSize, pageIndex);
+			result.addAll(ab.getArtists());
+		} catch (Exception e) {
+			Log.e(TAG, "", e);
 		}
 		return result;
 	}

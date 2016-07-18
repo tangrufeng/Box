@@ -52,6 +52,7 @@ public class ScanActivity extends BasePlayerActivity implements OnClickListener 
 	@Override
 	public void onClick(View v) {
 		if (R.id.btnScan == v.getId()) {
+			MediaDatabase.getInstance(this).clearMedia();
 			if (cbScanScope.isChecked()) {
 				library.loadMediaItems(this, 60000l);
 			} else {
@@ -59,6 +60,16 @@ public class ScanActivity extends BasePlayerActivity implements OnClickListener 
 			}
 		}
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.xhk.wifibox.activity.BasePlayerActivity#getActivityTitle()
+	 */
+	@Override
+	protected String getActivityTitle() {
+		return getString(R.string.my_localMusic);
 	}
 
 	public class Receiver extends BroadcastReceiver {
@@ -70,8 +81,8 @@ public class ScanActivity extends BasePlayerActivity implements OnClickListener 
 			if (Contants.BROADCAST_SCAN_COUNT.equals(action)) {
 				int count = intent.getIntExtra(Contants.EXTRA_SCAN_COUNT, 0);
 				Log.d("ScanActivity", "正在扫描...." + count + "----" + total
-						+ "----" + (int) ((count * 100) / total) + "%");
-				tvProcessing.setText("正在扫描...." + (int) ((count * 100) / total)
+						+ "----" + (count * 100) / total + "%");
+				tvProcessing.setText("正在扫描...." + (count * 100) / total
 						+ "%");
 			} else if (Contants.BROADCAST_SCAN_START.equals(action)) {
 				tvProcessing.setText("正在扫描....");
@@ -104,15 +115,5 @@ public class ScanActivity extends BasePlayerActivity implements OnClickListener 
 			}
 		}
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.xhk.wifibox.activity.BasePlayerActivity#getActivityTitle()
-	 */
-	@Override
-	protected String getActivityTitle() {
-		return getString(R.string.my_localMusic);
 	}
 }

@@ -1,9 +1,5 @@
 package com.xhk.wifibox;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.Application;
 import android.content.BroadcastReceiver;
@@ -30,13 +26,35 @@ import com.xhk.wifibox.utils.AudioUtil;
 import com.xhk.wifibox.utils.Contants;
 import com.xhk.wifibox.utils.HttpServer;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 public class XHKApplication extends Application {
 	public final static String TAG = "XHKApplication";
-	private static XHKApplication instance;
-
 	public final static String SLEEP_INTENT = "org.videolan.vlc.SleepIntent";
-
+	private static XHKApplication instance;
 	private List<Activity> mActivityStack = new ArrayList<Activity>();
+
+	public static XHKApplication getInstance() {
+		return instance;
+	}
+
+	/**
+	 * @return the main context of the Application
+	 */
+	public static Context getAppContext() {
+		return instance;
+	}
+
+	/**
+	 * @return the main resources from the Application
+	 */
+	public static Resources getAppResources() {
+		if (instance == null)
+			return null;
+		return instance.getResources();
+	}
 
 	@Override
 	public void onCreate() {
@@ -76,7 +94,7 @@ public class XHKApplication extends Application {
 		}
 
 		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder() //
-				.showImageForEmptyUri(null) //
+				.showImageForEmptyUri(R.drawable.ic_launcher) //
 				.showImageOnFail(null) //
 				.cacheInMemory(true) //
 				.cacheOnDisk(true) //
@@ -103,7 +121,7 @@ public class XHKApplication extends Application {
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	private void storeLocalIP() {
 		WifiManager wifiManager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
@@ -112,24 +130,6 @@ public class XHKApplication extends Application {
 		String localIP = ((ipAddress & 0xff) + "." + (ipAddress >> 8 & 0xff)
 				+ "." + (ipAddress >> 16 & 0xff) + "." + (ipAddress >> 24 & 0xff));
 		PreferenceUtils.putString(Contants.PREF_LOCAL_IP, localIP);
-	}
-
-	public static XHKApplication getInstance() {
-		return instance;
-	}
-
-	class MyBroadcastReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			Log.d(TAG, intent.getAction());
-			if (BoxControler.ACTION_BOX_NO_ADDRESS.equals(intent.getAction())) {
-				Intent i = new Intent(XHKApplication.this, ReadyActivity.class);
-				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(i);
-			}
-		}
-
 	}
 
 	/**
@@ -144,24 +144,8 @@ public class XHKApplication extends Application {
 	}
 
 	/**
-	 * @return the main context of the Application
-	 */
-	public static Context getAppContext() {
-		return instance;
-	}
-
-	/**
-	 * @return the main resources from the Application
-	 */
-	public static Resources getAppResources() {
-		if (instance == null)
-			return null;
-		return instance.getResources();
-	}
-
-	/**
 	 * 把Activity运行添加到当前运行的ActivityStack
-	 * 
+	 *
 	 * @param activity
 	 */
 	public void addActivity(Activity activity) {
@@ -170,7 +154,7 @@ public class XHKApplication extends Application {
 
 	/**
 	 * 从运行的ActivityStack
-	 * 
+	 *
 	 * @param activity
 	 */
 	public void removeActivity(Activity activity) {
@@ -182,7 +166,7 @@ public class XHKApplication extends Application {
 	 */
 	public void finishAllActivity() {
 		for (int i = 0; i < mActivityStack.size(); i++) {
-			Activity activity = (Activity) mActivityStack.get(i);
+			Activity activity = mActivityStack.get(i);
 			activity.finish();
 		}
 	}
@@ -197,5 +181,19 @@ public class XHKApplication extends Application {
 				getPackageName());
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
+	}
+
+	class MyBroadcastReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			Log.d(TAG, intent.getAction());
+			if (BoxControler.ACTION_BOX_NO_ADDRESS.equals(intent.getAction())) {
+				Intent i = new Intent(XHKApplication.this, ReadyActivity.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(i);
+			}
+		}
+
 	}
 }

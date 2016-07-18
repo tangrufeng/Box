@@ -8,20 +8,10 @@
  */
 package com.xhk.wifibox.action;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.gson.JsonObject;
 import com.xhk.wifibox.R;
 import com.xhk.wifibox.model.ParterTag;
 import com.xhk.wifibox.partner.PartnerUtils;
@@ -31,6 +21,15 @@ import com.xhk.wifibox.track.TrackMeta;
 import com.xhk.wifibox.utils.Device;
 import com.xhk.wifibox.utils.JSONUtil;
 import com.xhk.wifibox.utils.NetUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author tang
@@ -173,7 +172,7 @@ public class XMLYAction implements XHKAction {
 
 		List<TrackMeta> list = new ArrayList<TrackMeta>();
 		String queryUrl = ctx.getString(R.string.url_xmly_search,
-				PartnerUtils.XMLY_I_AM, Device.getDeviceId(ctx), key, pageIndex,
+				PartnerUtils.XMLY_I_AM, Device.getDeviceId(ctx), URLEncoder.encode(key), pageIndex,
 				pageSize);
 		Log.d(TAG,queryUrl);
 		String strResult = NetUtils.getInstance().getJSONDataByGet(queryUrl);

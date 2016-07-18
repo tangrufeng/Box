@@ -205,7 +205,7 @@ public class ReadyActivity extends BaseActivity {
 		udpHelper.isThreadDisable = true;
 		udpHelper.scanAllBox();
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(6000);
 		} catch (InterruptedException e) {
 		}
 		Log.d(TAG, "设备扫描完毕");

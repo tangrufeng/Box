@@ -1,8 +1,5 @@
 package com.xhk.wifibox.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -28,16 +25,18 @@ import com.xhk.wifibox.adapter.BoxListAdapter;
 import com.xhk.wifibox.box.Box;
 import com.xhk.wifibox.box.BoxCache;
 import com.xhk.wifibox.box.BoxControler;
-import com.xhk.wifibox.utils.AlertUtils;
 import com.xhk.wifibox.utils.UDPHelper;
 import com.xhk.wifibox.utils.UDPHelper.OnFindBoxListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuRightFragment extends Fragment implements OnFindBoxListener {
 	private static final String TAG = MenuRightFragment.class.getSimpleName();
-	private View mView = null;
 	private final static int MSG_NEED_RESTARTAPP = 0;
 	BoxControler bControler = BoxControler.getInstance();
 	List<Box> boxes = new ArrayList<Box>();
+	private View mView = null;
 	private BoxListAdapter adapter = null;
 
 	private Handler handler = new Handler(new Callback() {
@@ -63,7 +62,6 @@ public class MenuRightFragment extends Fragment implements OnFindBoxListener {
 			default:
 				break;
 			}
-
 			return false;
 
 		}

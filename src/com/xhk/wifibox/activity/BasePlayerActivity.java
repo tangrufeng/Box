@@ -42,16 +42,15 @@ public abstract class BasePlayerActivity extends SlidingActivity implements
 		OnMiniPlayerClickListener, OnLeftItemClickListener {
 
 	public final String TAG = getClass().getSimpleName();
+	protected final int DAILOG_LOADDATE = 1;
 	private SlidingMenu menu = null;
 	private BoxControler mControler = BoxControler.getInstance();
-
 	private FrameLayout flContent;
 	private Button btnMusic, btnBoxes;
 	private ImageButton ibBack, ibMore;
 	private TextView tvTitle;
 	private View contentView, titleView;
 	private MiniPlayerFragment miniPlayer;
-	protected final int DAILOG_LOADDATE = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -351,16 +350,21 @@ public abstract class BasePlayerActivity extends SlidingActivity implements
 				@Override
 				public void run() {
 					BoxControler mControler = BoxControler.getInstance();
-					mControler.stopSyncBoxPlayState();
-					synchronized (BoxCache.getCache().getCurrent()) {
-						BoxPlayerState bps = mControler.getBoxPlayerState();
-						BoxControler.getInstance().setBoxVolume(
 
-						bps.currentVolume < 0 ? 0 : bps.currentVolume - 5,
-								BoxCache.getCache().getCurrent());
+					if (BoxCache.getCache().getCurrent() != null) {
+						mControler.stopSyncBoxPlayState();
+						synchronized (BoxCache.getCache().getCurrent()) {
+							BoxPlayerState bps = mControler.getBoxPlayerState();
+							if (bps != null) {
+								BoxControler.getInstance().setBoxVolume(
 
+										bps.currentVolume < 0 ? 0
+												: bps.currentVolume - 10,
+										BoxCache.getCache().getCurrent());
+							}
+						}
+						mControler.startSyncBoxPlayState();
 					}
-					mControler.startSyncBoxPlayState();
 				}
 			}).start();
 			return true;
@@ -370,16 +374,19 @@ public abstract class BasePlayerActivity extends SlidingActivity implements
 				@Override
 				public void run() {
 					BoxControler mControler = BoxControler.getInstance();
-					mControler.stopSyncBoxPlayState();
-					synchronized (BoxCache.getCache().getCurrent()) {
-						BoxPlayerState bps = mControler.getBoxPlayerState();
-						BoxControler.getInstance().setBoxVolume(
-								bps.currentVolume > 100 ? 100
-										: bps.currentVolume + 5,
-								BoxCache.getCache().getCurrent());
-
+					if (BoxCache.getCache().getCurrent() != null) {
+						mControler.stopSyncBoxPlayState();
+						synchronized (BoxCache.getCache().getCurrent()) {
+							BoxPlayerState bps = mControler.getBoxPlayerState();
+							if (bps != null) {
+								BoxControler.getInstance().setBoxVolume(
+										bps.currentVolume > 100 ? 100
+												: bps.currentVolume + 10,
+										BoxCache.getCache().getCurrent());
+							}
+						}
+						mControler.startSyncBoxPlayState();
 					}
-					mControler.startSyncBoxPlayState();
 				}
 			}).start();
 			return true;
@@ -389,13 +396,15 @@ public abstract class BasePlayerActivity extends SlidingActivity implements
 				@Override
 				public void run() {
 					BoxControler mControler = BoxControler.getInstance();
-					mControler.stopSyncBoxPlayState();
-					synchronized (BoxCache.getCache().getCurrent()) {
-						BoxControler.getInstance().setBoxVolume(0,
-								BoxCache.getCache().getCurrent());
+					if (BoxCache.getCache().getCurrent() != null) {
+						mControler.stopSyncBoxPlayState();
+						synchronized (BoxCache.getCache().getCurrent()) {
+							BoxControler.getInstance().setBoxVolume(0,
+									BoxCache.getCache().getCurrent());
 
+						}
+						mControler.startSyncBoxPlayState();
 					}
-					mControler.startSyncBoxPlayState();
 				}
 			}).start();
 			return true;

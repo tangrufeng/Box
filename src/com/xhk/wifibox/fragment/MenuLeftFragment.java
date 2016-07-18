@@ -1,12 +1,17 @@
 package com.xhk.wifibox.fragment;
 
 import android.app.Activity;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.xhk.wifibox.R;
 
@@ -38,6 +43,15 @@ public class MenuLeftFragment extends Fragment implements OnClickListener
 		mView.findViewById(R.id.ll_left_xiami).setOnClickListener(this);
 		mView.findViewById(R.id.ll_left_ttfm).setOnClickListener(this);
 		mView.findViewById(R.id.btn_exit).setOnClickListener(this);
+		TextView tv = (TextView) mView.findViewById(R.id.tv_version);
+		try {
+			PackageManager pm = getActivity().getPackageManager();
+			PackageInfo pi = pm.getPackageInfo(getActivity().getPackageName(), 0);
+			tv.setText("版本号:" + pi.versionName);
+		} catch (NameNotFoundException e) {
+			Log.e("MenuLeftFragment", e.getLocalizedMessage(), e);
+		}
+		
 	}
 	
 	
@@ -50,18 +64,15 @@ public class MenuLeftFragment extends Fragment implements OnClickListener
 		this.listener=(OnLeftItemClickListener) activity;
 	}
 
-	
-	
-	public interface OnLeftItemClickListener {
-		public void onLeftItemClick(View v);
-	}
-
-
 	/* (non-Javadoc)
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	@Override
 	public void onClick(View v) {
 		listener.onLeftItemClick(v);
+	}
+
+	public interface OnLeftItemClickListener {
+		void onLeftItemClick(View v);
 	}
 }

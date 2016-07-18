@@ -8,20 +8,6 @@
  */
 package com.xhk.wifibox.box;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
@@ -37,6 +23,21 @@ import com.xhk.wifibox.utils.Contants;
 import com.xhk.wifibox.utils.JSONUtil;
 import com.xhk.wifibox.utils.NetUtils;
 import com.xhk.wifibox.utils.Util;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author tang
@@ -59,21 +60,21 @@ public class BoxControler {
 	public static final String ACTION_BOX_NO_ADDRESS = "ACTION_BOX_NO_ADDRESS";
 	private final static String TAG = BoxControler.class.getSimpleName();
 	private final static BoxControler instance = new BoxControler();
+	private final int BOX_RETURN_OK = 0;
+	private final String BOX_RETURN_RESULT = "Result";
+	NetUtils netUtils = NetUtils.getInstance();
 	private String boxIpAddress;
 	private String jsonFilePath = "";
 	private int boxPort;
-	NetUtils netUtils = NetUtils.getInstance();
 	private Context ctx;
 	private String localIP;
-	private final int BOX_RETURN_OK = 0;
-	private final String BOX_RETURN_RESULT = "Result";
 	private List<TrackMeta> playList = new ArrayList<TrackMeta>();
 	private TrackMeta track = new TrackMeta();
 	private String currentPlayListId = "";
 	private boolean sync = false;
 	// private boolean isPlay = false;
 	private BoxCache boxCache = BoxCache.getCache();
-	private List<OnBoxPlayStateListener> listeners = new ArrayList<BoxControler.OnBoxPlayStateListener>();
+	private CopyOnWriteArrayList<OnBoxPlayStateListener> listeners = new CopyOnWriteArrayList<BoxControler.OnBoxPlayStateListener>();
 
 	private BoxControler() {
 		new Thread(new Runnable() {
@@ -103,6 +104,10 @@ public class BoxControler {
 		}).start();
 	}
 
+	public static BoxControler getInstance() {
+		return instance;
+	}
+
 	public void addOnBoxPlayStateChangedListener(OnBoxPlayStateListener listener) {
 		if (listener != null && !listeners.contains(listener)) {
 			listeners.add(listener);
@@ -112,10 +117,6 @@ public class BoxControler {
 	public void setBoxApiAddress(String ipAddress, int port) {
 		this.boxIpAddress = ipAddress;
 		this.boxPort = port;
-	}
-
-	public static BoxControler getInstance() {
-		return instance;
 	}
 
 	// public boolean isPlay() {
@@ -225,7 +226,6 @@ public class BoxControler {
 			int ipAddress = wifiInfo.getIpAddress();
 			localIP = ((ipAddress & 0xff) + "." + (ipAddress >> 8 & 0xff) + "."
 					+ (ipAddress >> 16 & 0xff) + "." + (ipAddress >> 24 & 0xff));
-			;
 		}
 		return localIP;
 	}
@@ -702,6 +702,6 @@ public class BoxControler {
 	}
 
 	public interface OnBoxPlayStateListener {
-		public void OnStateChanged(BoxPlayerState state);
+		void OnStateChanged(BoxPlayerState state);
 	}
 }

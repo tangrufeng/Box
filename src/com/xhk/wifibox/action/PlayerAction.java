@@ -8,13 +8,8 @@
  */
 package com.xhk.wifibox.action;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import android.content.Context;
+import android.util.Log;
 
 import com.xhk.wifibox.box.BoxControler;
 import com.xhk.wifibox.model.Media;
@@ -22,14 +17,20 @@ import com.xhk.wifibox.model.MediaDatabase;
 import com.xhk.wifibox.track.Source;
 import com.xhk.wifibox.track.TrackMeta;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * @author tang
  *
  */
 public class PlayerAction {
 	private final static String TAG = PlayerAction.class.getSimpleName();
-	private Context ctx;
 	BoxControler mControler=null;
+	private Context ctx;
 	public PlayerAction(Context ctx) {
 		this.ctx=ctx;
 		mControler=BoxControler.getInstance();
@@ -60,9 +61,10 @@ public class PlayerAction {
 			String url = key.next();
 			Media m = map.get(url);
 			tm.setArtist(m.getArtist());
-			tm.setPlayUrl(mControler.getLocalSongPath()+url);
+			tm.setPlayUrl(mControler.getLocalSongPath() + url);
 			tm.setSource(Source.SOURCE_LOCAL);
 			tm.setName(m.getTitle());
+			Log.d(TAG, "-------->" + tm);
 			list.add(tm);
 		}
 		return list;
